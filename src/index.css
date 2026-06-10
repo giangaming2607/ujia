@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@theme {
+  --color-glass-dark: #020617;
+  --font-sans: "Inter", "Plus Jakarta Sans", ui-sans-serif, system-ui;
+}
+
+/* Base styles for Frosted Glass Theme */
+body {
+  background-color: #020617;
+  color: #f8fafc;
+}
+
+/* Ambient animated mesh details */
+.mesh-bg {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 70% 30%, #1e3a8a 0%, transparent 45%),
+              radial-gradient(circle at 30% 70%, #4c1d95 0%, transparent 45%),
+              radial-gradient(circle at 50% 50%, #0f172a 0%, transparent 100%);
+  filter: blur(90px);
+  z-index: 0;
+  opacity: 0.65;
+  pointer-events: none;
+  animation: slow-drift 25s ease-in-out infinite alternate;
+}
+
+@keyframes slow-drift {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(8deg) scale(1.1);
+  }
+}
+
+/* Glass Panel Blurring */
+.glass-panel {
+  background: rgba(2, 6, 23, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Glass Cards and Containers */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Input boxes in Frosted Glass */
+.glass-input {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  backdrop-filter: blur(6px) !important;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: rgba(99, 102, 241, 0.6) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.15) !important;
+  outline: none !important;
+}
+
+/* Custom styled scrollbars for glass columns */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

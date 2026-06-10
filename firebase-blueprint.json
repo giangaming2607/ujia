@@ -1,0 +1,159 @@
+{
+  "entities": {
+    "Subject": {
+      "title": "Subject",
+      "description": "Exam subject details and schedule",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the subject"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the subject"
+        },
+        "examDate": {
+          "type": "string",
+          "description": "Scheduled date of the exam (YYYY-MM-DD)"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Scheduled start time of the exam (HH:MM)"
+        },
+        "duration": {
+          "type": "integer",
+          "description": "Exam duration in minutes"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "name", "examDate", "startTime", "duration"]
+    },
+    "Question": {
+      "title": "Question",
+      "description": "Question under a specific exam subject",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array"
+        },
+        "correctAnswer": {
+          "type": "integer",
+          "description": "Index of the correct option (0-indexed)"
+        }
+      },
+      "required": ["id", "text", "options", "correctAnswer"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "Student user details and real-time activity tracking",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Student username"
+        },
+        "name": {
+          "type": "string",
+          "description": "Student full name"
+        },
+        "password": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["aktif", "tidak_aktif"]
+        },
+        "currentActivity": {
+          "type": "string"
+        },
+        "lastActiveAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "cheatingLogs": {
+          "type": "array"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "name", "password", "status", "currentActivity"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "Student exam session progress, ordering, answers, and results",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "studentId_subjectId"
+        },
+        "studentId": {
+          "type": "string"
+        },
+        "subjectId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["mengerjakan", "selesai"]
+        },
+        "questionOrder": {
+          "type": "array",
+          "description": "Randomized array of question IDs for this student"
+        },
+        "answers": {
+          "type": "object",
+          "description": "Map of questionId to chosen option index"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "submittedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "score": {
+          "type": "number"
+        },
+        "correctCount": {
+          "type": "integer"
+        },
+        "totalCount": {
+          "type": "integer"
+        }
+      },
+      "required": ["id", "studentId", "subjectId", "status", "questionOrder", "answers", "startedAt"]
+    }
+  },
+  "firestore": {
+    "/subjects/{subjectId}": {
+      "schema": "Subject",
+      "description": "Exam subjects, schedule and durations"
+    },
+    "/subjects/{subjectId}/questions/{questionId}": {
+      "schema": "Question",
+      "description": "Exam questions belonging to a subject"
+    },
+    "/students/{studentId}": {
+      "schema": "Student",
+      "description": "List of student user credentials and their real-time CBT monitoring status"
+    },
+    "/exams/{examId}": {
+      "schema": "Exam",
+      "description": "Exam attempts, customized randomizations, scores, and audit answers"
+    }
+  }
+}
